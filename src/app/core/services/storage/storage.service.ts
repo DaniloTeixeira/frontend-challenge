@@ -4,39 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageService {
-  private prefix = 'TOKEN';
+  setStorageItem(key: string, value: string): void {
+    localStorage.setItem(key, value);
+  }
 
-  // setItem(key: string, value: any): void {
-  //   if (typeof value !== 'string') {
-  //     value = JSON.stringify(value);
-  //   }
+  getStorageItem(key: string): string | null {
+    return localStorage.getItem(key);
+  }
 
-  //   localStorage.setItem(this.addPrefix(key), value);
-  // }
+  removeStorageItem(key: string): void {
+    localStorage.removeItem(key);
+  }
 
-  // clear(): void {
-  //   localStorage.clear();
-  // }
-
-  // getItem<T = any>(key: string): T | null {
-  //   return this.getLocalStorageItem<T>(key);
-  // }
-
-  // removeItem(key: string): void {
-  //   localStorage.removeItem(this.addPrefix(key));
-  // }
-
-  // private getLocalStorageItem<T = any>(key: string): T | null {
-  //   const itemStr = localStorage.getItem(this.addPrefix(key));
-
-  //   if (!itemStr) {
-  //     return null;
-  //   }
-
-  //   return itemStr;
-  // }
-
-  // private addPrefix(key: string): string {
-  //   return `${this.prefix}_${key}`;
-  // }
+  clearStorage(): void {
+    localStorage.clear();
+  }
 }
