@@ -7,14 +7,10 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row mb-3">
       <mat-form-field class="w-100 mb-2">
-        <mat-label>E-mail</mat-label>
-        <input type="email" matInput formControlName="email" />
-        <mat-error *ngIf="form.controls.email.hasError('required')">
-          O e-mail é obrigatório
-        </mat-error>
-        <mat-error *ngIf="form.controls.email.hasError('email')">
-          Digite o e-mail corretamente
-        </mat-error>
+        <mat-label>Nome do Usuário</mat-label>
+        <input type="text" matInput formControlName="username" />
+        <mat-icon color="primary" matSuffix>person</mat-icon>
+        <mat-error> O nome do usuário é obrigatório </mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-12">
@@ -24,16 +20,9 @@
           matInput
           formControlName="password"
         />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="toggleShowPassword()"
-          type="button"
-        >
-          <mat-icon color="primary">
-            {{ showPassword ? "visibility" : "visibility_off" }}
-          </mat-icon>
-        </button>
+        <mat-icon color="primary" matSuffix (click)="toggleShowPassword()">
+          {{ showPassword ? "visibility" : "visibility_off" }}
+        </mat-icon>
         <mat-error>A senha é obrigatória</mat-error>
       </mat-form-field>
     </div>
@@ -41,3 +30,5 @@
     <button mat-raised-button color="primary" class="w-100">ENTRAR</button>
   </form>
 </mat-card>
+
+<app-loader *ngIf="loading"></app-loader>

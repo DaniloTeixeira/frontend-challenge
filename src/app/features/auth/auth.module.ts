@@ -11,6 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/login/login.component';
+import { CoreModule } from 'src/app/core/core.module';
+import { AuthService } from './services';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoginComponent, AuthComponent],
@@ -19,6 +22,8 @@ import { LoginComponent } from './components/login/login.component';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    CoreModule,
+    HttpClientModule,
 
     MatCardModule,
     MatIconModule,
@@ -26,5 +31,6 @@ import { LoginComponent } from './components/login/login.component';
     MatButtonModule,
     MatFormFieldModule,
   ],
+  providers: [AuthService],
 })
 export class AuthModule {}

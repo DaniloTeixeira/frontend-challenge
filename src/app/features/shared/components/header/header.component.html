@@ -1,0 +1,38 @@
+<div class="mb-4">
+  <mat-toolbar color="primary" class="d-flex justify-content-between px-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/todo/criar">
+          <mat-icon>add_task</mat-icon>
+          <span>Novo</span>
+        </button>
+
+        <button mat-menu-item routerLink="/todo/lista">
+          <mat-icon>list</mat-icon>
+          <span>Lista</span>
+        </button>
+      </mat-menu>
+    </div>
+    <div>
+      <a
+        class="me-3"
+        href="https://www.linkedin.com/in/danilorodriguesteixeira/"
+        target="_blank"
+      >
+        <img
+          src="../../../../assets/imagens/linkedin-logo.png"
+          alt="logomarca do linkedin"
+        />
+      </a>
+      <a class="me-4" href="https://github.com/DaniloTeixeira" target="_blank">
+        <img
+          src="../../../../assets/imagens/github-logo.png"
+          alt="logomarca do github"
+        />
+      </a>
+    </div>
+  </mat-toolbar>
+</div>
