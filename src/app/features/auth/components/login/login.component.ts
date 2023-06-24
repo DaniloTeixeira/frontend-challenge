@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   private buildForm() {
     return this.fb.nonNullable.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
