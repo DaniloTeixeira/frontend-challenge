@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -13,16 +14,19 @@ const routes: Routes = [
       import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'pagamentos',
+    path: 'dashboard',
     loadChildren: () =>
       import('./features/payments/payments.module').then(
         (m) => m.PaymentsModule
       ),
   },
   {
+    path: 'pagina-nao-encontrada',
+    component: PageNotFoundComponent,
+  },
+  {
     path: '**',
-    pathMatch: 'full',
-    redirectTo: 'pagamentos',
+    redirectTo: 'pagina-nao-encontrada',
   },
 ];
 
