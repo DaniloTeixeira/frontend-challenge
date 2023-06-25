@@ -9,8 +9,8 @@ export class NotificationService {
 
   info(msg: string): void {
     this.matSnackBar.open(`${msg}`, 'OK', {
-      duration: 2000,
-      horizontalPosition: 'right',
+      duration: 3000,
+      horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: ['notification-info'],
     });
@@ -18,8 +18,8 @@ export class NotificationService {
 
   success(msg: string): void {
     this.matSnackBar.open(`${msg}`, 'OK', {
-      duration: 2000,
-      horizontalPosition: 'right',
+      duration: 3000,
+      horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: ['notification-success'],
     });
