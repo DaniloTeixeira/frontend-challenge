@@ -1,4 +1,4 @@
-<div>
+<div class="mx-4 my-5 mat-elevation-z2">
   <mat-card class="p-4">
     <div class="d-flex justify-content-between align-items-center flex-wrap">
       <div class="flex-grow-1">
@@ -14,7 +14,12 @@
               <input type="text" matInput formControlName="filter" />
             </mat-form-field>
 
-            <button mat-fab class="primary-stroked-button ms-2" type="submit">
+            <button
+              mat-fab
+              class="primary-stroked-button ms-2"
+              type="submit"
+              [disabled]="!form.controls.filter.value"
+            >
               <mat-icon>search</mat-icon>
             </button>
           </div>
@@ -31,40 +36,50 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let payment">
+        <td mat-cell data-cell="Nome" *matCellDef="let payment">
           {{ payment.firstName + payment.lastName }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Título</th>
-        <td mat-cell *matCellDef="let payment">{{ payment.title }}</td>
+        <td mat-cell data-cell="Título" *matCellDef="let payment">
+          {{ payment.title }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef>Data</th>
-        <td mat-cell *matCellDef="let payment">
+        <td mat-cell data-cell="Data" *matCellDef="let payment">
           {{ payment.date | date : "dd/MM/yyyy" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef>Valor</th>
-        <td mat-cell *matCellDef="let payment">
+        <td mat-cell data-cell="Valor" *matCellDef="let payment">
           {{ payment.value | currency }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="isPayed">
+      <ng-container matColumnDef="paid">
         <th mat-header-cell *matHeaderCellDef>Pago</th>
-        <td mat-cell *matCellDef="let payment">{{ payment.isPayed }}</td>
+        <td mat-cell data-cell="Pago" *matCellDef="let payment">
+          <span [ngClass]="payment.isPayed ? 'color-green' : 'color-red'">
+            {{ payment.isPayed | paid }}
+          </span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let atendimento">
+        <td mat-cell data-cell="Ações" *matCellDef="let payment">
           <div>
-            <button mat-icon-button [matMenuTriggerFor]="contextMenu">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="contextMenu"
+              (click)="openMenu(payment)"
+            >
               <mat-icon class="text-color">more_vert</mat-icon>
             </button>
           </div>
@@ -72,12 +87,15 @@
       </ng-container>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="text-center" [attr.colspan]="displayedColumns.length">
+        <td
+          class="text-center td__no-data p-3"
+          [attr.colspan]="displayedColumns.length"
+        >
           <span *ngIf="!loading">
             <img
               class="td__no-data-image"
               src="../../../../../assets/images/no-data-table.svg"
-              alt="sem dados"
+              alt="sem dados para apresentar"
             />
             Nenhum pagamento encontrado
           </span>
@@ -85,11 +103,7 @@
       </tr>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let payment; columns: displayedColumns"
-        (click)="openMenu(payment)"
-      ></tr>
+      <tr mat-row *matRowDef="let payment; columns: displayedColumns"></tr>
     </table>
 
     <mat-paginator

@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     'title',
     'date',
     'value',
-    'isPayed',
+    'paid',
     'actions',
   ];
 

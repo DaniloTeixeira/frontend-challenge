@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) {
-      this.notification.info('Preencha os campos corretamente');
+      this.notification.error('Preencha os campos corretamente');
       return;
     }
 
