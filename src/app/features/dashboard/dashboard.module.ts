@@ -7,12 +7,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DashboardComponent } from './components/dashboard';
 import { CoreModule } from 'src/app/core/core.module';
+import { DashboardComponent } from './components/dashboard';
 import { ModalPaymentComponent } from './components/modal-payment';
 import { DashBoardRoutingModule } from './components/dashboard-routing.module';
 
@@ -34,6 +35,7 @@ const components = [DashboardComponent, ModalPaymentComponent];
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatDialogModule,
 
     CoreModule,
   ],

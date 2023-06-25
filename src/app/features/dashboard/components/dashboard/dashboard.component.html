@@ -27,7 +27,12 @@
       </div>
 
       <div>
-        <button mat-raised-button class="primary-raised-button" type="button">
+        <button
+          mat-raised-button
+          class="primary-raised-button"
+          type="button"
+          (click)="onOpenDialog()"
+        >
           Adicionar
         </button>
       </div>
@@ -120,12 +125,12 @@
 </div>
 
 <mat-menu #contextMenu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="onOpenDialog()">
     <mat-icon class="text-muted">edit</mat-icon>
     Editar
   </button>
 
-  <button mat-menu-item>
+  <button mat-menu-item (click)="onDeletePayment()">
     <mat-icon class="text-danger">delete</mat-icon>
     Remover
   </button>
