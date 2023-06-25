@@ -1,6 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Payment } from '../models/Payment';
+import { PaymentService } from '../services/payment';
 
 export interface PeriodicElement {
   name: string;
@@ -9,45 +13,47 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   @ViewChild(MatMenuTrigger)
   matMenuTrigger!: MatMenuTrigger;
 
   @ViewChild(MatPaginator)
   matPaginator!: MatPaginator;
 
+  private fb = inject(FormBuilder);
+  private paymentService = inject(PaymentService);
+
+  form = this.buildForm();
+
+  payment?: Payment;
+  dataSource = new MatTableDataSource<PaymentItem>();
+
   displayedColumns: string[] = [
-    'position',
     'name',
-    'weight',
-    'symbol',
+    'title',
+    'date',
+    'value',
+    'isPayed',
     'actions',
   ];
-  dataSource = ELEMENT_DATA;
-  loaded = false;
 
   page = 0;
   limit = 10;
+  totalPage = 0;
+  loading = false;
+  showFilters = false;
 
-  openMenu(event: any, payment: any): void {
-    console.log(event, payment);
+  ngOnInit(): void {
+    this.loadPayments();
+  }
+
+  openMenu(payment: Payment): void {
+    console.log(payment);
     this.matMenuTrigger.openMenu();
   }
 
@@ -55,6 +61,40 @@ export class DashboardComponent {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
 
-    // this.loadPainelDeAtendimento();
+    this.loadPayments();
+  }
+
+  onFilterSubmit(): void {
+    this.page = 0;
+
+    if (this.matPaginator) {
+      this.matPaginator.pageIndex = 0;
+    }
+
+    this.loadPayments();
+  }
+
+  toogleShowFilters(): void {
+    this.showFilters = !this.showFilters;
+  }
+
+  private buildForm() {
+    return this.fb.nonNullable.group({
+      filter: [''],
+    });
+  }
+
+  private loadPayments(): void {
+    this.loading = true;
+
+    this.paymentService
+      .getPayments()
+      .subscribe((payment) => {
+        this.dataSource.data = payment.items;
+        this.totalPage = payment.totalPage;
+      })
+      .add(() => {
+        this.loading = false;
+      });
   }
 }
