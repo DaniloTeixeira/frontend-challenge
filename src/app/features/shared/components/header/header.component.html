@@ -11,7 +11,7 @@
       <small class="ms-2 default-text">PayStore</small>
     </div>
 
-    <div class="d-flex align-items-center flex-column mt-2">
+    <div class="d-flex align-items-center flex-column">
       <div>
         <button mat-mini-fab [matMenuTriggerFor]="menu" type="button">
           <img
@@ -20,6 +20,7 @@
             alt="imagem do usuário logado no sistema"
           />
         </button>
+
         <mat-menu #menu="matMenu">
           <button mat-menu-item type="button">
             <mat-icon>manage_accounts</mat-icon>
@@ -37,7 +38,6 @@
           </button>
         </mat-menu>
       </div>
-      <!-- <span class="profile-user__name">Danilo</span> -->
     </div>
   </mat-toolbar>
 </div>

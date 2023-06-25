@@ -21,10 +21,6 @@ export class AuthService {
 
   isAuthenticated$ = new BehaviorSubject<boolean>(false);
 
-  constructor() {
-    this.setIsAuthenticated();
-  }
-
   login(payload: LoginPayload): Observable<LoginResponse> {
     const url = `${this.baseUrl}/login`;
 
@@ -48,11 +44,5 @@ export class AuthService {
 
   private setLocalStorageToken(accessToken: string): void {
     this.storageService.setItem('accessToken', accessToken);
-  }
-
-  private setIsAuthenticated(): void {
-    const token = this.storageService.getItem('accessToken');
-
-    this.isAuthenticated$.next(!!token);
   }
 }
