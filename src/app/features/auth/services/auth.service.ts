@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
@@ -18,22 +18,32 @@ export class AuthService {
 
   private baseUrl = endpoints.auth;
 
-  isAuthenticated$ = new BehaviorSubject<boolean>(false);
+  _isAuthenticated$ = new BehaviorSubject<boolean>(false);
+
+  get isAuthenticaded(): boolean {
+    return this._isAuthenticated$.getValue();
+  }
 
   login(payload: LoginPayload): Observable<LoginResponse> {
     const url = `${this.baseUrl}/login`;
 
     return this.http.post<LoginResponse>(url, { payload }).pipe(
-      tap((response) =>
-        this.storageService.setToken(environment.token, response.access_token)
-      ),
-      tap(() => this.isAuthenticated$.next(true))
+      tap((response) => this.setLocalStorageToken(response)),
+      tap(() => this._isAuthenticated$.next(true))
     );
   }
 
   logout(): void {
-    this.storageService.removeToken(environment.token);
+    this.storageService.removeToken('token');
     this.router.navigate(['autenticacao']);
-    this.isAuthenticated$.next(false);
+    this._isAuthenticated$.next(false);
+  }
+
+  getLocalstorageToken(): string | null {
+    return this.storageService.getToken('token');
+  }
+
+  private setLocalStorageToken(response: LoginResponse): void {
+    this.storageService.setToken('token', response.access_token);
   }
 }

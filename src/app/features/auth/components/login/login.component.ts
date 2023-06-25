@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services';
 import { LoginPayload } from '../../models/LoginPayload';
 import { NotificationService } from 'src/app/core/services/notification';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,11 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   loading = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (environment.development) {
+      this.fillFormWithUserCredentials();
+    }
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -65,9 +70,10 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       });
   }
+  private fillFormWithUserCredentials(): void {
+    this.form.patchValue({
+      username: 'picpay-web',
+      password: 'picpay@123',
+    });
+  }
 }
-
-// {
-//   "username": "picpay-web",
-//   "password": "picpay@123"
-// }
