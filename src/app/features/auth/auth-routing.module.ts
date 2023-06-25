@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'autenticacao',
+    redirectTo: 'entrar',
   },
   {
     path: '',
