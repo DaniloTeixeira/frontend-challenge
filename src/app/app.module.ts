@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './features/auth/interceptors/auth';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
+import { SharedModule } from './features/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
     MatSnackBarModule,
 
     CoreModule,
+    SharedModule,
   ],
   providers: [
     {

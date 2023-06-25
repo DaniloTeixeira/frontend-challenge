@@ -16,8 +16,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./features/payments/payments.module').then(
-        (m) => m.PaymentsModule
+      import('./features/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
       ),
   },
   {

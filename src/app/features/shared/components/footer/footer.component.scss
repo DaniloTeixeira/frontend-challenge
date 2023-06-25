@@ -1,0 +1,21 @@
+@import "src/assets/scss/variables.scss";
+
+.footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px;
+  text-align: center;
+  color: $default-text-color;
+  background-color: $whitesmoke;
+}
+
+a {
+  width: 25px;
+  margin: 5px;
+}
+
+.footer__img {
+  height: 20px;
+}
