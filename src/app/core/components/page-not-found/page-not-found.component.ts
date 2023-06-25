@@ -7,5 +7,5 @@ import { AuthService } from 'src/app/features/auth/services';
   styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundComponent {
-  isAuthenticated = inject(AuthService).isAuthenticaded;
+  isAuthenticated$ = inject(AuthService).isAuthenticated$;
 }

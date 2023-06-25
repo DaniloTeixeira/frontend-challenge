@@ -29,13 +29,6 @@ small {
   border-radius: 15px;
 }
 
-span {
-  color: $white;
-  font-size: 16px;
-  font-weight: 300;
-  font-family: cursive;
-}
-
 .img__profile-user {
   width: 50px;
   height: 50px;
@@ -43,4 +36,16 @@ span {
   object-fit: cover;
   border: 3px solid limegreen;
   background-color: white;
+}
+
+span:not(.profile-user__name),
+mat-icon {
+  color: $default-text-color !important;
+}
+
+.profile-user__name {
+  color: $white;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: cursive;
 }

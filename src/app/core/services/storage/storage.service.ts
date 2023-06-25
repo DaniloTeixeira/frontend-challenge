@@ -4,19 +4,25 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageService {
-  setToken(token: string, value: string): void {
-    localStorage.setItem(token, value);
+  private prefix = 'PAY_STORE';
+
+  setItem(key: string, value: string): void {
+    localStorage.setItem(this.addPrefix(key), value);
   }
 
-  getToken(key: string): string | null {
-    return localStorage.getItem(key);
+  getItem(key: string): string | null {
+    return localStorage.getItem(this.addPrefix(key));
   }
 
-  removeToken(token: string): void {
-    localStorage.removeItem(token);
+  removeItem(key: string): void {
+    localStorage.removeItem(this.addPrefix(key));
   }
 
-  clearLocalstorage(): void {
+  clearStorage(): void {
     localStorage.clear();
+  }
+
+  private addPrefix(key: string): string {
+    return `${this.prefix}_${key}`;
   }
 }

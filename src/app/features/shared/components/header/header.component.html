@@ -12,12 +12,32 @@
     </div>
 
     <div class="d-flex align-items-center flex-column mt-2">
-      <img
-        class="img__profile-user"
-        src="../../../../../assets/images/profile-photo.png"
-        alt="imagem do usuário logado no sistema"
-      />
-      <span>Danilo</span>
+      <div>
+        <button mat-mini-fab [matMenuTriggerFor]="menu" type="button">
+          <img
+            class="img__profile-user"
+            src="../../../../../assets/images/profile-photo.png"
+            alt="imagem do usuário logado no sistema"
+          />
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item type="button">
+            <mat-icon>manage_accounts</mat-icon>
+            <span>Meu Cadastro</span>
+          </button>
+
+          <button
+            mat-menu-item
+            type="button"
+            (click)="onLogout()"
+            class="default-text"
+          >
+            <mat-icon>logout</mat-icon>
+            <span>Sair</span>
+          </button>
+        </mat-menu>
+      </div>
+      <!-- <span class="profile-user__name">Danilo</span> -->
     </div>
   </mat-toolbar>
 </div>
