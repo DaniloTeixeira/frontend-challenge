@@ -58,13 +58,8 @@ export class LoginComponent implements OnInit {
 
     this.authService
       .login(payload)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-
-          this.notification.success('Login efetuado com sucesso!');
-        },
-        error: () => this.notification.info('Usuário ou senha inválidos'),
+      .subscribe(() => {
+        this.notification.success('Login efetuado com sucesso!');
       })
       .add(() => {
         this.loading = false;
