@@ -23,6 +23,8 @@ export class AuthInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: `Bearer ${token}` },
       });
 
+      this.authService.isAuthenticated$.next(true);
+
       return next.handle(request);
     }
 
