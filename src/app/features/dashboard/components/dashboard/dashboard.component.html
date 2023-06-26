@@ -109,6 +109,7 @@
           class="text-center td__no-data p-3"
           [attr.colspan]="displayedColumns.length"
         >
+          <span *ngIf="loading">Carregando...</span>
           <span *ngIf="!loading">
             <img
               class="td__no-data-image"

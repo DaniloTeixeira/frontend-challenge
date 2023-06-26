@@ -174,6 +174,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private loadPayments(): void {
     const payload = this.loadPaymentsPayload();
 
+    this.loading = true;
+
     this.paymentService
       .getPayments(payload)
       .subscribe((payment) => {
