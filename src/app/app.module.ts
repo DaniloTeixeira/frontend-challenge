@@ -13,8 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptor } from './core/interceptors/auth';
 import { SharedModule } from './features/shared/shared.module';
-import { AuthInterceptor } from './features/auth/interceptors/auth';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler';
 
 registerLocaleData(ptBr);

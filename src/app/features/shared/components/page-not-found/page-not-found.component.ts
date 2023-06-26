@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from 'src/app/features/auth/services';
+import { AuthService } from 'src/app/features/auth/services/auth';
 
 @Component({
   selector: 'app-page-not-found',

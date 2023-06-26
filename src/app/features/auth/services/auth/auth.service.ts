@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { endpoints } from 'src/environments/ednpoints';
-import { LoginPayload } from '../models/LoginPayload';
-import { LoginResponse } from '../models/LoginResponse';
+import { LoginPayload } from '../../models/LoginPayload';
+import { LoginResponse } from '../../models/LoginResponse';
 import { StorageService } from 'src/app/core/services/storage';
 
 @Injectable({
