@@ -1,3 +1,50 @@
-img {
-  max-height: 25px;
+@import "src/assets/scss/variables.scss";
+
+.header__container {
+  height: 100px;
+}
+
+mat-toolbar {
+  height: 90px;
+}
+
+small {
+  background: -webkit-linear-gradient($tertiary-color, $secondary-color);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.img__company-container {
+  display: flex;
+  align-items: center;
+
+  height: 60px;
+  border-bottom: 2px solid $tertiary-color;
+  border-left: 1px solid $tertiary-color;
+  border-radius: 15px;
+}
+
+.img__profile-user {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid limegreen;
+  background-color: white;
+}
+
+span:not(.profile-user__name),
+mat-icon {
+  color: $default-text-color !important;
+}
+
+.profile-user__name {
+  color: $white;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: cursive;
 }

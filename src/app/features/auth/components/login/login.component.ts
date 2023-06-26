@@ -5,6 +5,7 @@ import { AuthService } from '../../services';
 import { LoginPayload } from '../../models/LoginPayload';
 import { NotificationService } from 'src/app/core/services/notification';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  private router = inject(Router);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private notification = inject(NotificationService);
 
   form = this.buildForm();
 
-  showPassword = false;
   loading = false;
+  showPassword = false;
 
   ngOnInit(): void {
     if (environment.development) {
@@ -29,14 +31,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) {
-      this.notification.info('Preencha os campos corretamente');
+      this.notification.error('Preencha os campos corretamente');
       return;
     }
 
     this.login();
   }
 
-  toggleShowPassword(): void {
+  onToggleShowPassword(): void {
     this.showPassword = !this.showPassword;
   }
 
@@ -64,12 +66,14 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(payload)
       .subscribe(() => {
+        this.router.navigate(['dashboard']);
         this.notification.success('Login efetuado com sucesso!');
       })
       .add(() => {
         this.loading = false;
       });
   }
+
   private fillFormWithUserCredentials(): void {
     this.form.patchValue({
       username: 'picpay-web',

@@ -14,9 +14,11 @@
         mat-raised-button
         class="primary-raised-button"
         type="button"
-        [routerLink]="isAuthenticated ? ['/dashboard'] : ['/autenticacao']"
+        [routerLink]="
+          (isAuthenticated$ | async) ? ['/dashboard'] : ['/autenticacao']
+        "
       >
-        Voltar para {{ isAuthenticated ? "dashboard" : "login" }}
+        Voltar para {{ (isAuthenticated$ | async) ? "dashboard" : "login" }}
       </button>
     </div>
   </div>

@@ -6,14 +6,11 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { StorageService } from 'src/app/core/services/storage';
 import { AuthService } from '../../services';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private authService = inject(AuthService);
-  private isAuthenticated = inject(AuthService).isAuthenticaded;
 
   intercept(
     request: HttpRequest<unknown>,
@@ -21,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = this.authService.getLocalstorageToken();
 
-    if (this.isAuthenticated) {
+    if (token) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });

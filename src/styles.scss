@@ -10,14 +10,15 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 // Snackbar styles
-.notification-info {
-  --mdc-snackbar-container-color: #161af0;
+.notification-error {
+  --mdc-snackbar-container-color: #bf2301;
   --mat-mdc-snack-bar-button-color: #fff;
 
   .mat-mdc-button {
@@ -80,4 +81,16 @@ body {
 .secondary-stroked-button {
   color: $secondary-color !important;
   background-color: #fff !important;
+}
+
+.color-red {
+  color: $red !important;
+}
+
+.color-green {
+  color: $green !important;
+}
+
+mat-form-field {
+  margin-bottom: 5px;
 }

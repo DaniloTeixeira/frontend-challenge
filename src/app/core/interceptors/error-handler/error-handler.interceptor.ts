@@ -25,17 +25,29 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private handleError(errorResponse: HttpErrorResponse): HttpEvent<any> {
     const statusCode = errorResponse.status;
 
+    if (statusCode === 400) {
+      this.notification.error(
+        'Solicitação inválida, se o erro persistir contate o suporte técnico.'
+      );
+    }
+
     if (statusCode === 401) {
-      this.notification.info('Campo usuário ou senha inválido');
+      this.notification.error('Campo usuário ou senha inválido.');
     }
 
     if (statusCode === 404) {
-      this.notification.info('A página solicitada não foi encontrada');
+      this.notification.error('A página solicitada não foi encontrada.');
     }
 
     if (statusCode === 500) {
-      this.notification.info(
-        'Erro interno no servidor, tente novamente mais tarde'
+      this.notification.error(
+        'Erro interno no servidor, tente novamente mais tarde.'
+      );
+    }
+
+    if (statusCode == 0) {
+      this.notification.error(
+        'Houve um erro na requisição, tente novamente mais tarde.'
       );
     }
 

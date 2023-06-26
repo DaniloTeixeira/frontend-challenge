@@ -7,12 +7,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NotificationService {
   private matSnackBar = inject(MatSnackBar);
 
-  info(msg: string): void {
+  error(msg: string): void {
     this.matSnackBar.open(`${msg}`, 'OK', {
       duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: ['notification-info'],
+      panelClass: ['notification-error'],
     });
   }
 
