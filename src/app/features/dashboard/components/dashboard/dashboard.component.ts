@@ -1,8 +1,15 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/core/services/notification';
 import { ModalPaymentComponent } from '../modal-payment';
@@ -23,12 +30,14 @@ export interface PeriodicElement {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatMenuTrigger)
   matMenuTrigger!: MatMenuTrigger;
 
   @ViewChild(MatPaginator)
   matPaginator!: MatPaginator;
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   private fb = inject(FormBuilder);
   private matDialog = inject(MatDialog);
@@ -58,6 +67,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTotalPaymentsAmount();
+  }
+
+  ngAfterViewInit(): void {
+    this.sortRowsByDate();
   }
 
   onOpenMenu(event: MouseEvent, payment: PaymentItem): void {
@@ -135,6 +148,20 @@ export class DashboardComponent implements OnInit {
     return this.fb.nonNullable.group({
       filter: [''],
     });
+  }
+
+  private sortRowsByDate(): void {
+    this.dataSource.sort = this.sort;
+
+    this.dataSource.sortingDataAccessor = (row, header) => {
+      const value = row[header as keyof PaymentItem] as any;
+
+      if (header === 'date') {
+        return +new Date(value as string);
+      }
+
+      return value;
+    };
   }
 
   private loadPaymentsPayload(): PaymentListPayload {

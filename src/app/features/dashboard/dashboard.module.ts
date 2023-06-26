@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -42,6 +43,7 @@ const components = [DashboardComponent, ModalPaymentComponent];
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSortModule,
     MatProgressSpinnerModule,
 
     CoreModule,
