@@ -26,7 +26,6 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url, payload).pipe(
       tap(({ access_token }) => {
-        this.isAuthenticated$.next(true);
         this.setLocalStorageToken(access_token);
       })
     );
