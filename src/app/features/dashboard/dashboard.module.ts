@@ -14,14 +14,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
-import { CoreModule } from 'src/app/core/core.module';
+import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard';
+import { PipesModule } from 'src/app/core/pipes/pipes.module';
 import { ModalPaymentComponent } from './components/modal-payment';
 import { DashBoardRoutingModule } from './components/dashboard-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 const components = [DashboardComponent, ModalPaymentComponent];
 
@@ -46,7 +47,8 @@ const components = [DashboardComponent, ModalPaymentComponent];
     MatSortModule,
     MatProgressSpinnerModule,
 
-    CoreModule,
+    PipesModule,
+    SharedModule,
 
     NgxMaskDirective,
     CurrencyMaskModule,
