@@ -1,0 +1,25 @@
+<div class="not-found__container">
+  <div>
+    <h4 class="text-center text-color mb-5">
+      Ops! A página que você está procurando não foi encontrada.
+    </h4>
+    <img
+      class="img-fluid m-auto d-block"
+      width="500"
+      src="../../../../assets/images/page-not-found.svg"
+      alt="imagem com o número quatrocentos e quatro, código que representa que a página não foi encontrada"
+    />
+    <div class="text-center mt-5">
+      <button
+        mat-raised-button
+        class="primary-raised-button"
+        type="button"
+        [routerLink]="
+          (isAuthenticated$ | async) ? ['/dashboard'] : ['/autenticacao']
+        "
+      >
+        Voltar para {{ (isAuthenticated$ | async) ? "dashboard" : "login" }}
+      </button>
+    </div>
+  </div>
+</div>

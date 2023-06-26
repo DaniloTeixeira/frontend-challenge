@@ -1,0 +1,54 @@
+@import "src/assets/scss/variables.scss";
+
+table {
+  width: 90vw;
+  max-width: 1400px;
+}
+
+th {
+  background-color: $whitesmoke !important;
+}
+
+.td__no-data-image {
+  width: 110px;
+  display: block;
+  margin: 20px auto;
+}
+
+mat-checkbox {
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  th {
+    display: none;
+  }
+
+  td {
+    text-align: start;
+  }
+
+  td:not(.td__no-data) {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 15ch auto;
+    padding: 0.5rem;
+    border: none;
+    font-size: 13px;
+
+    &:first-child {
+      padding-top: 1rem;
+      border-top: 1px solid $primary-color;
+      background-color: $whitesmoke;
+    }
+
+    &:last-child::before {
+      margin-top: 16px;
+    }
+
+    &::before {
+      content: attr(data-cell) ":";
+      font-weight: 500;
+    }
+  }
+}

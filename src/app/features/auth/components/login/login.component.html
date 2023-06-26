@@ -1,0 +1,40 @@
+<mat-card class="login__container mat-elevation-z6">
+  <h1 class="text-center text-color">Login</h1>
+  <small class="text-center text-muted mb-4">
+    Faça o login para gerenciar seus pagamentos</small
+  >
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+      <mat-form-field class="w-100 mb-2">
+        <mat-label>Usuário</mat-label>
+        <input type="text" matInput formControlName="username" />
+        <mat-icon class="primary-color" matSuffix>person</mat-icon>
+        <mat-error> O nome do usuário é obrigatório </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <mat-label>Senha</mat-label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          matInput
+          formControlName="password"
+        />
+        <mat-icon
+          matSuffix
+          class="primary-color"
+          (click)="onToggleShowPassword()"
+        >
+          {{ showPassword ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error>A senha é obrigatória</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button class="w-100 primary-raised-button">
+      Entrar
+    </button>
+  </form>
+</mat-card>
+
+<app-loader *ngIf="loading"></app-loader>

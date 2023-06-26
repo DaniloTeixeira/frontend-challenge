@@ -1,0 +1,96 @@
+@import "./assets/scss/variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Snackbar styles
+.notification-error {
+  --mdc-snackbar-container-color: #bf2301;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  .mat-mdc-button {
+    color: #fff !important;
+  }
+}
+
+.notification-success {
+  --mdc-snackbar-container-color: #44a344;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  .mat-mdc-button {
+    color: #fff !important;
+  }
+}
+
+.text-color {
+  color: $default-text-color;
+}
+
+.primary-color {
+  color: $primary-color;
+}
+
+.primary-bg {
+  background-color: $primary-color;
+}
+
+.secondary-color {
+  color: $secondary-color;
+}
+
+.secondary-bg {
+  background-color: $secondary-color;
+}
+
+.tertiary-color {
+  color: $tertiary-color;
+}
+
+.tertiary-bg {
+  background-color: $tertiary-color;
+}
+
+.primary-raised-button {
+  color: #fff !important;
+  background-color: $primary-color !important;
+}
+
+.primary-stroked-button {
+  color: $primary-color !important;
+  background-color: #fff !important;
+}
+
+.secondary-raised-button {
+  color: #fff !important;
+  background-color: $secondary-color !important;
+}
+
+.secondary-stroked-button {
+  color: $secondary-color !important;
+  background-color: #fff !important;
+}
+
+.color-red {
+  color: $red !important;
+}
+
+.color-green {
+  color: $green !important;
+}
+
+mat-form-field {
+  margin-bottom: 5px;
+}
