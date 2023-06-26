@@ -16,8 +16,8 @@
 
             <button
               mat-fab
-              matTooltip="Pesquisar"
-              class="primary-stroked-button ms-2"
+              matTooltip="Filtrar"
+              class="primary-stroked-button ms-3"
               type="submit"
             >
               <mat-icon>search</mat-icon>
@@ -31,7 +31,7 @@
           mat-raised-button
           class="primary-raised-button"
           type="button"
-          (click)="onOpenDialog()"
+          (click)="onOpenDialog('Adicionar')"
         >
           Adicionar
         </button>
@@ -96,7 +96,7 @@
             <button
               mat-icon-button
               [matMenuTriggerFor]="contextMenu"
-              (click)="onOpenMenu($event, payment)"
+              (click)="onOpenMenu(payment)"
             >
               <mat-icon class="text-color">more_vert</mat-icon>
             </button>
@@ -137,7 +137,7 @@
 </div>
 
 <mat-menu #contextMenu="matMenu">
-  <button mat-menu-item (click)="onOpenDialog()">
+  <button mat-menu-item (click)="onOpenDialog('Alterar')">
     <mat-icon class="text-muted">edit</mat-icon>
     Alterar
   </button>

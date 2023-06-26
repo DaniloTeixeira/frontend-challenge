@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   form = this.buildForm();
 
   payment?: Payment;
-  selectedPayment: PaymentItem | null = null;
+  selectedPayment?: PaymentItem;
   dataSource = new MatTableDataSource<PaymentItem>();
 
   displayedColumns: string[] = [
@@ -73,22 +73,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.sortRowsByDate();
   }
 
-  onOpenMenu(event: MouseEvent, payment: PaymentItem): void {
-    this.matMenuTrigger.openMenu();
-
-    if (event) {
-      this.selectedPayment = payment;
-      return;
-    }
-
-    this.selectedPayment = null;
+  onOpenMenu(payment: PaymentItem): void {
+    this.selectedPayment = payment;
   }
 
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
 
-    this.loadPayments();
+    this.setTotalPaymentsAmount();
   }
 
   onFilterSubmit(): void {
@@ -105,8 +98,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.showFilters = !this.showFilters;
   }
 
-  onOpenDialog(): void {
-    const data = this.selectedPayment;
+  onOpenDialog(action: 'Adicionar' | 'Alterar'): void {
+    let data: PaymentItem | undefined;
+
+    if (action === 'Alterar') {
+      data = this.selectedPayment;
+    } else {
+      data = undefined;
+    }
 
     const dialogRef = this.matDialog.open(ModalPaymentComponent, {
       autoFocus: false,
@@ -119,8 +118,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.loadPayments();
         return;
       }
-
-      this.selectedPayment = null;
     });
   }
 
@@ -177,8 +174,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private loadPayments(): void {
     const payload = this.loadPaymentsPayload();
 
-    this.loading = true;
-
     this.paymentService
       .getPayments(payload)
       .subscribe((payment) => {
@@ -198,14 +193,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private setTotalPaymentsAmount(): void {
     this.loading = true;
 
-    this.paymentService
-      .getPayments()
-      .subscribe((payment) => {
+    this.paymentService.getPayments().subscribe({
+      next: (payment) => {
         this.totalPaymentsAmount = payment.items.length;
         this.loadPayments();
-      })
-      .add(() => {
+      },
+      error: () => {
         this.loading = false;
-      });
+      },
+    });
   }
 }
