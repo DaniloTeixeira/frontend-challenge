@@ -4,9 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationService } from 'src/app/core/services/notification';
 import { ModalPaymentComponent } from '../modal-payment';
 import { Payment } from '../models/Payment';
 import { PaymentItem } from '../models/PaymentItem';
+import { PaymentListPayload } from '../models/PaymentListPayload';
 import { PaymentService } from '../services/payment';
 
 export interface PeriodicElement {
@@ -31,11 +33,12 @@ export class DashboardComponent implements OnInit {
   private fb = inject(FormBuilder);
   private matDialog = inject(MatDialog);
   private paymentService = inject(PaymentService);
+  private notification = inject(NotificationService);
 
   form = this.buildForm();
 
   payment?: Payment;
-  selectedPayment!: Payment;
+  selectedPayment: PaymentItem | null = null;
   dataSource = new MatTableDataSource<PaymentItem>();
 
   displayedColumns: string[] = [
@@ -49,17 +52,23 @@ export class DashboardComponent implements OnInit {
 
   page = 0;
   limit = 10;
-  totalPage = 0;
   loading = false;
   showFilters = false;
+  totalPaymentsAmount = 0;
 
   ngOnInit(): void {
-    this.loadPayments();
+    this.setTotalPaymentsAmount();
   }
 
-  openMenu(payment: Payment): void {
+  onOpenMenu(event: MouseEvent, payment: PaymentItem): void {
     this.matMenuTrigger.openMenu();
-    this.selectedPayment = payment;
+
+    if (event) {
+      this.selectedPayment = payment;
+      return;
+    }
+
+    this.selectedPayment = null;
   }
 
   onPageChange(event: PageEvent): void {
@@ -88,18 +97,39 @@ export class DashboardComponent implements OnInit {
 
     const dialogRef = this.matDialog.open(ModalPaymentComponent, {
       autoFocus: false,
-      width: '500px',
+      width: '650px',
       data,
     });
 
     dialogRef.afterClosed().subscribe((params) => {
       if (params?.reload) {
         this.loadPayments();
+        return;
       }
+
+      this.selectedPayment = null;
     });
   }
 
-  onDeletePayment(): void {}
+  onDeletePayment(): void {
+    const id = this.selectedPayment?._id;
+
+    if (!id) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.paymentService
+      .deletePayment(id)
+      .subscribe(() => {
+        this.notification.success('Pagamento excluído com sucesso!');
+        this.loadPayments();
+      })
+      .add(() => {
+        this.loading = false;
+      });
+  }
 
   private buildForm() {
     return this.fb.nonNullable.group({
@@ -107,14 +137,45 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  private loadPaymentsPayload(): PaymentListPayload {
+    const filter = this.form.controls.filter?.value;
+
+    return {
+      limit: this.limit,
+      page: this.page + 1,
+      filter,
+    };
+  }
+
   private loadPayments(): void {
+    const payload = this.loadPaymentsPayload();
+
+    this.loading = true;
+
+    this.paymentService
+      .getPayments(payload)
+      .subscribe((payment) => {
+        this.dataSource.data = payment.items;
+
+        if (!payment.items.length) {
+          this.notification.error(
+            'Nenhum pagamento encontrado com o filtro selecionado.'
+          );
+        }
+      })
+      .add(() => {
+        this.loading = false;
+      });
+  }
+
+  private setTotalPaymentsAmount(): void {
     this.loading = true;
 
     this.paymentService
       .getPayments()
       .subscribe((payment) => {
-        this.dataSource.data = payment.items;
-        this.totalPage = payment.totalPage;
+        this.totalPaymentsAmount = payment.items.length;
+        this.loadPayments();
       })
       .add(() => {
         this.loading = false;

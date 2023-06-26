@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
-  toggleShowPassword(): void {
+  onToggleShowPassword(): void {
     this.showPassword = !this.showPassword;
   }
 

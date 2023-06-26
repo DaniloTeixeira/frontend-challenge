@@ -30,3 +30,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Usuario - picpay-web
 Senha - picpay@123
+
+## Bibliotecas utilizadas
+
+- Bootstrap
+- Angualar Material
+- Date-fns
+- ngx-mask
+- ng2-currency-mask

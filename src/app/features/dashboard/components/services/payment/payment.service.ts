@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { endpoints } from 'src/environments/ednpoints';
-import { CreatePaymentPayload } from '../../models/CreatePaymentPayload';
+import { CreateOrEditPaymentPayload } from '../../models/CreateOrEditPaymentPayload';
 import { Payment } from '../../models/Payment';
 import { PaymentListPayload } from '../../models/PaymentListPayload';
 
@@ -37,14 +37,17 @@ export class PaymentService {
     return this.http.get<Payment>(url);
   }
 
-  createPayment(payload: CreatePaymentPayload): Observable<void> {
+  createPayment(payload: CreateOrEditPaymentPayload): Observable<void> {
     return this.http.post<void>(this.baseUrl, payload);
   }
 
-  editPayment(id: string): Observable<void> {
-    const url = `${this.baseUrl};${id}`;
+  editPayment(
+    payload: CreateOrEditPaymentPayload,
+    id: string
+  ): Observable<void> {
+    const url = `${this.baseUrl}/${id}`;
 
-    return this.http.put<void>(url, {});
+    return this.http.put<void>(url, payload);
   }
 
   deletePayment(id: string): Observable<void> {

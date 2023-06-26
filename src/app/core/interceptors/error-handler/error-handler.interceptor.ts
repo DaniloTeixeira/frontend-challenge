@@ -25,6 +25,12 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private handleError(errorResponse: HttpErrorResponse): HttpEvent<any> {
     const statusCode = errorResponse.status;
 
+    if (statusCode === 400) {
+      this.notification.error(
+        'Solicitação inválida, se o erro persistir contate o suporte técnico.'
+      );
+    }
+
     if (statusCode === 401) {
       this.notification.error('Campo usuário ou senha inválido.');
     }
