@@ -1,5 +1,5 @@
-<div class="mx-4 my-5 mat-elevation-z2">
-  <mat-card class="p-4">
+<div class="m-md-5 my-3 mx-1 mat-elevation-z2">
+  <mat-card class="p-md-4 p-sm-3 p-xs-2">
     <div class="d-flex justify-content-between align-items-end flex-wrap">
       <div class="flex-grow-1">
         <div>
@@ -8,7 +8,7 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="onFilterSubmit()">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex">
             <mat-form-field class="w-75">
               <mat-label>Filtro</mat-label>
               <input type="text" matInput formControlName="filter" />
