@@ -4,12 +4,16 @@ import { AuthService } from 'src/app/features/auth/services/auth';
 
 export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
-  const accessToken = inject(AuthService).getLocalstorageToken();
+  const isAuthenticated$ = inject(AuthService).isAuthenticated$;
 
-  if (!accessToken) {
-    router.navigate(['autenticacao']);
-    return false;
-  }
+  isAuthenticated$.subscribe((isAuthenticated) => {
+    if (!isAuthenticated) {
+      router.navigate(['autenticacao']);
+      return false;
+    }
+
+    return true;
+  });
 
   return true;
 };

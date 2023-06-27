@@ -6,24 +6,22 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/features/auth/services/auth';
+import { StorageService } from '../../services/storage';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private authService = inject(AuthService);
+  private storageService = inject(StorageService);
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = this.authService.getLocalstorageToken();
+    const accessToken = this.storageService.getItem('access_token');
 
-    if (token) {
+    if (accessToken) {
       request = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
+        setHeaders: { Authorization: `Bearer ${accessToken}` },
       });
-
-      return next.handle(request);
     }
 
     return next.handle(request);

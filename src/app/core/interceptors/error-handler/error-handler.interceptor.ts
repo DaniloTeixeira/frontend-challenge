@@ -25,14 +25,10 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private handleError(errorResponse: HttpErrorResponse): HttpEvent<any> {
     const statusCode = errorResponse.status;
 
-    if (statusCode === 400) {
+    if (statusCode == 400 || statusCode === 401) {
       this.notification.error(
-        'Solicitação inválida, se o erro persistir contate o suporte técnico.'
+        'Houve um erro na requisição, tente novamente mais tarde.'
       );
-    }
-
-    if (statusCode === 401) {
-      this.notification.error('Campo usuário ou senha inválido.');
     }
 
     if (statusCode === 404) {
@@ -42,12 +38,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     if (statusCode >= 500) {
       this.notification.error(
         'Erro interno no servidor, tente novamente mais tarde.'
-      );
-    }
-
-    if (statusCode == 0) {
-      this.notification.error(
-        'Houve um erro na requisição, tente novamente mais tarde.'
       );
     }
 
