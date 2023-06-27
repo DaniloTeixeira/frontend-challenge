@@ -58,12 +58,18 @@
           </button>
           <input
             hidden
-            (change)="handleFileChange($event)"
+            (change)="fileToBase64($event)"
+            [value]="null"
             #fileInput
             type="file"
-            formControlName="avatar"
           />
-          <span class="file-name">{{ selectedFile }}</span>
+          <span class="file-name">{{ selectedFileName }}</span>
+          <mat-error
+            class="required-avatar-error"
+            *ngIf="shouldShowRequiredAvatarError"
+          >
+            O avatar é obrigatório
+          </mat-error>
         </div>
       </div>
 
