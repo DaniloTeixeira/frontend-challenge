@@ -25,8 +25,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private handleError(errorResponse: HttpErrorResponse): HttpEvent<any> {
     const statusCode = errorResponse.status;
 
-    console.log(errorResponse);
-
     if (statusCode == 400) {
       this.notification.error(
         'Houve um erro na requisição, tente novamente mais tarde.'
