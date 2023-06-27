@@ -25,6 +25,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private handleError(errorResponse: HttpErrorResponse): HttpEvent<any> {
     const statusCode = errorResponse.status;
 
+    console.log(errorResponse);
+
     if (statusCode == 400) {
       this.notification.error(
         'Houve um erro na requisição, tente novamente mais tarde.'
@@ -32,7 +34,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     }
 
     if (statusCode === 401) {
-      this.notification.error('Campo usuário ou senha inválido');
+      this.notification.error('Campo usuário ou senha inválido.');
     }
 
     if (statusCode === 404) {
@@ -43,11 +45,15 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.notification.error('O arquivo enviado excede o tamanho limite.');
     }
 
-    if (statusCode >= 500) {
+    if (statusCode >= 500 || statusCode === 403) {
       this.notification.error(
         'Erro interno no servidor, tente novamente mais tarde.'
       );
     }
+
+    this.notification.error(
+      'Não foi possível processar sua solicitação, tente novamente daqui uns instantes.'
+    );
 
     throw new Error(errorResponse.message);
   }
