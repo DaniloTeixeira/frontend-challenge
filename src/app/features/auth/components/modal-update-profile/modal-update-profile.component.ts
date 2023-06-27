@@ -42,7 +42,7 @@ export class ModalUpdateProfileComponent {
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.form.invalid) {
+    if (this.form.invalid || !this.avatarUrl) {
       this.notification.error('Preencha todos os campos corretamente.');
       return;
     }
