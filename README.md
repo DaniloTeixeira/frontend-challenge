@@ -12,8 +12,8 @@ Abra a pasta do projeto em um editor de código de sua preferência, e rode o co
 
 ## Usuário e senha para acesso ao sistema
 
-Usuario - picpay-web
-Senha - picpay@123
+Usuario: picpay-web
+Senha: picpay@123
 
 ## Bibliotecas utilizadas no projeto
 
