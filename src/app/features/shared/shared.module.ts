@@ -5,6 +5,7 @@ import { HeaderComponent } from './components/header';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -30,6 +31,7 @@ const components = [
     MatButtonModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   exports: components,
 })
