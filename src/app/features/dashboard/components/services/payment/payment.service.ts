@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { paymentMock } from 'src/app/core/data/payments-mock';
 import { endpoints } from 'src/environments/ednpoints';
 import { CreateOrEditPaymentPayload } from '../../models/CreateOrEditPaymentPayload';
 import { Payment } from '../../models/Payment';
@@ -27,6 +28,8 @@ export class PaymentService {
     if (payload?.page != null) {
       params = params.set('page', payload?.page);
     }
+
+    return of(paymentMock);
 
     return this.http.get<Payment>(this.baseUrl, { params });
   }

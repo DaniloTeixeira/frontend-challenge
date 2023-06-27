@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(payload)
       .subscribe(() => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
         this.notification.success('Login efetuado com sucesso!');
       })
       .add(() => {

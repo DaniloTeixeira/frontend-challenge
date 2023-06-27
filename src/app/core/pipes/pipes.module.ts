@@ -5,8 +5,8 @@ import { PaidPipe } from './paid';
 const components = [PaidPipe];
 
 @NgModule({
-  declarations: [components],
+  declarations: components,
   imports: [CommonModule],
-  exports: [components],
+  exports: components,
 })
 export class PipesModule {}
