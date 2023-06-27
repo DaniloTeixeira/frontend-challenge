@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class StorageService {
   private prefix = 'PAY_STORE';
 
-  setItem(key: string, value: string): void {
+  setItem(key: string, value: string | any): void {
     localStorage.setItem(this.addPrefix(key), value);
   }
 

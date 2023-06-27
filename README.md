@@ -38,3 +38,4 @@ Senha - picpay@123
 - Date-fns
 - ngx-mask
 - ng2-currency-mask
+- fontawesome
