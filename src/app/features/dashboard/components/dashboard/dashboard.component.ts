@@ -31,9 +31,6 @@ export interface PeriodicElement {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatMenuTrigger)
-  matMenuTrigger!: MatMenuTrigger;
-
   @ViewChild(MatPaginator)
   matPaginator!: MatPaginator;
 

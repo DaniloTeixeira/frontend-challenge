@@ -16,9 +16,13 @@ export class AuthService {
   private storageService = inject(StorageService);
 
   private baseUrl = endpoints.auth;
-  private _isAuthenticated$ = new BehaviorSubject(false);
+  private _isAuthenticated$ = new BehaviorSubject(
+    !!this.storageService.getItem('accessToken')
+  );
 
-  isAuthenticated$ = this._isAuthenticated$.asObservable();
+  isAuthenticated$ = this._isAuthenticated$
+    .asObservable()
+    .pipe(tap(console.log));
 
   login(payload: LoginPayload): Observable<LoginResponse> {
     const url = `${this.baseUrl}/login`;

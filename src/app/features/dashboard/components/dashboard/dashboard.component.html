@@ -8,7 +8,7 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="onFilterSubmit()">
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <mat-form-field class="w-75">
               <mat-label>Filtro</mat-label>
               <input type="text" matInput formControlName="filter" />
