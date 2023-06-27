@@ -10,8 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -34,8 +32,6 @@ import { ModalUpdateProfileComponent } from './components/modal-update-profile';
     MatButtonModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-
-    FontAwesomeModule,
 
     CoreModule,
     SharedModule,
