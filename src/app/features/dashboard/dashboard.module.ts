@@ -27,7 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const components = [DashboardComponent, ModalPaymentComponent];
 
 @NgModule({
-  declarations: [components],
+  declarations: components,
   imports: [
     CommonModule,
     FormsModule,
@@ -53,7 +53,7 @@ const components = [DashboardComponent, ModalPaymentComponent];
     NgxMaskDirective,
     CurrencyMaskModule,
   ],
-  exports: [components],
+  exports: components,
   providers: [provideNgxMask()],
 })
 export class DashboardModule {}

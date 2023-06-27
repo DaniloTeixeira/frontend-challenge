@@ -39,7 +39,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.notification.error('A página solicitada não foi encontrada.');
     }
 
-    if (statusCode === 500) {
+    if (statusCode >= 500) {
       this.notification.error(
         'Erro interno no servidor, tente novamente mais tarde.'
       );
