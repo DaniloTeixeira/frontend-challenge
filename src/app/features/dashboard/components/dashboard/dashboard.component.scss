@@ -20,6 +20,11 @@ mat-checkbox {
 }
 
 @media (max-width: 600px) {
+  mat-card {
+    width: 95vw;
+    padding: 10px;
+  }
+
   th {
     display: none;
   }
@@ -39,6 +44,7 @@ mat-checkbox {
     &:first-child {
       padding-top: 1rem;
       border-top: 1px solid $primary-color;
+      border-radius: 0 0 5px 5px;
       background-color: $whitesmoke;
     }
 
