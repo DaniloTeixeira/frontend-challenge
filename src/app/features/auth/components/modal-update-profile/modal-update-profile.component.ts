@@ -21,12 +21,27 @@ export class ModalUpdateProfileComponent {
 
   form = this.buildForm();
 
+  submitted = false;
   avatarUrl!: string;
-  selectedFile?: string;
+  selectedFileName?: string;
 
   loading = false;
 
+  get shouldShowRequiredAvatarError(): boolean {
+    return this.submitted && !this.avatarUrl;
+  }
+
+  buildForm() {
+    return this.fb.nonNullable.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      bio: ['', Validators.required],
+    });
+  }
+
   onSubmit(): void {
+    this.submitted = true;
+
     if (this.form.invalid) {
       this.notification.error('Preencha todos os campos corretamente.');
       return;
@@ -35,33 +50,20 @@ export class ModalUpdateProfileComponent {
     this.updateProfile();
   }
 
-  handleFileChange(event: Event) {
+  fileToBase64(event: Event) {
     const inputElement = event.target as HTMLInputElement;
-    const fileList = inputElement.files;
 
-    this.selectedFile = fileList![0].name;
+    const file = inputElement.files![0];
 
-    if (fileList && fileList.length > 0) {
-      const file = fileList[0];
-      const reader = new FileReader();
+    this.selectedFileName = file?.name;
 
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
+    const fileReader = new FileReader();
 
-        this.avatarUrl = base64String.split(',')[1];
-      };
+    fileReader.onload = () => {
+      this.avatarUrl = (fileReader.result as string).split(',')[1];
+    };
 
-      reader.readAsDataURL(file);
-    }
-  }
-
-  buildForm() {
-    return this.fb.nonNullable.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      bio: ['', Validators.required],
-      avatar: ['', Validators.required],
-    });
+    fileReader.readAsDataURL(file);
   }
 
   onCloseDialog(): void {
@@ -88,6 +90,8 @@ export class ModalUpdateProfileComponent {
       .updateProfile(payload)
       .subscribe(({ user }) => {
         const strUser = JSON.stringify(user);
+
+        this.notification.success('Perfil alterado com sucesso!');
 
         this.storageService.setItem('userInfo', strUser);
 

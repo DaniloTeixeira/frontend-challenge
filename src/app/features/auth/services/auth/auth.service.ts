@@ -48,6 +48,8 @@ export class AuthService {
   updateProfile(
     payload: UpdateProfilePayload
   ): Observable<UpdateProfileResponse> {
-    return this.http.put<UpdateProfileResponse>(this.baseUrl, payload);
+    const url = `${this.baseUrl}/profile`;
+
+    return this.http.put<UpdateProfileResponse>(url, payload);
   }
 }

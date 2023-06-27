@@ -35,6 +35,10 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.notification.error('A página solicitada não foi encontrada.');
     }
 
+    if (statusCode === 413) {
+      this.notification.error('O arquivo enviado excede o tamanho limite.');
+    }
+
     if (statusCode >= 500) {
       this.notification.error(
         'Erro interno no servidor, tente novamente mais tarde.'
