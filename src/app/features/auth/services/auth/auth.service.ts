@@ -20,9 +20,7 @@ export class AuthService {
     !!this.storageService.getItem('accessToken')
   );
 
-  isAuthenticated$ = this._isAuthenticated$
-    .asObservable()
-    .pipe(tap(console.log));
+  isAuthenticated$ = this._isAuthenticated$.asObservable();
 
   login(payload: LoginPayload): Observable<LoginResponse> {
     const url = `${this.baseUrl}/login`;
@@ -36,7 +34,6 @@ export class AuthService {
       tap(({ access_token }) => {
         this.setLocalStorageToken(access_token);
         this._isAuthenticated$.next(true);
-        console.log(this._isAuthenticated$.getValue());
       })
     );
 
