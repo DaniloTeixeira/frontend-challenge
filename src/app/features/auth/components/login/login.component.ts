@@ -22,9 +22,10 @@ export class LoginComponent implements OnInit {
 
   loading = false;
   showPassword = false;
+  isLocalEnvironment = location.href.includes('http://localhost');
 
   ngOnInit(): void {
-    if (environment.development) {
+    if (this.isLocalEnvironment) {
       this.fillFormWithUserCredentials();
     }
   }
