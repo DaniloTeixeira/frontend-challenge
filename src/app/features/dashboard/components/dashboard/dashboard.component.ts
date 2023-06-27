@@ -6,17 +6,18 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { NotificationService } from 'src/app/core/services/notification';
-import { ModalPaymentComponent } from '../modal-payment';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+
 import { Payment } from '../models/Payment';
-import { PaymentItem } from '../models/PaymentItem';
-import { PaymentListPayload } from '../models/PaymentListPayload';
 import { PaymentService } from '../services/payment';
+import { PaymentItem } from '../models/PaymentItem';
+import { ModalPaymentComponent } from '../modal-payment';
+import { PaymentListPayload } from '../models/PaymentListPayload';
+import { NotificationService } from 'src/app/core/services/notification';
 
 export interface PeriodicElement {
   name: string;

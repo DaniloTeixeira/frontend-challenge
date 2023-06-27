@@ -1,0 +1,86 @@
+<div class="p-2">
+  <div class="ms-3">
+    <h2 class="text-color">Alteração cadastral</h2>
+    <p class="text-muted">Altere as informações do seu perfil</p>
+  </div>
+
+  <div
+    class="d-flex justify-content-center py-5"
+    *ngIf="loading; else formulary"
+  >
+    <mat-spinner strokeWidth="6" />
+  </div>
+
+  <ng-template #formulary>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-3">
+      <div class="row">
+        <mat-form-field class="col-lg-6">
+          <mat-label>Primeiro nome</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="firstName"
+            maxlength="30"
+          />
+          <mat-error>O primeiro nome é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-6">
+          <mat-label>Sobrenome</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="lastName"
+            maxlength="30"
+          />
+          <mat-error>O sobrenome é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <mat-label>Bio</mat-label>
+          <textarea
+            matInput
+            type="text"
+            formControlName="bio"
+            rows="2"
+          ></textarea>
+          <mat-error>A bio é obrigatória</mat-error>
+        </mat-form-field>
+
+        <div class="col-12 mb-3">
+          <button
+            type="button"
+            mat-raised-button
+            class="primary-raised-button"
+            (click)="fileInput.click()"
+          >
+            Escolha seu avatar
+          </button>
+          <input
+            hidden
+            (change)="handleFileChange($event)"
+            #fileInput
+            type="file"
+            formControlName="avatar"
+          />
+          <span class="file-name">{{ selectedFile }}</span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between mt-1">
+        <button
+          mat-raised-button
+          type="button"
+          class="primary-stroked-button"
+          (click)="onCloseDialog()"
+        >
+          Cancelar
+        </button>
+
+        <button mat-raised-button type="submit" class="primary-raised-button">
+          Alterar
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</div>
