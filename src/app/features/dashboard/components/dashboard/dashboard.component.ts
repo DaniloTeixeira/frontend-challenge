@@ -1,8 +1,15 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/core/services/notification';
 import { ModalPaymentComponent } from '../modal-payment';
@@ -23,12 +30,11 @@ export interface PeriodicElement {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
-  @ViewChild(MatMenuTrigger)
-  matMenuTrigger!: MatMenuTrigger;
-
+export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   matPaginator!: MatPaginator;
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   private fb = inject(FormBuilder);
   private matDialog = inject(MatDialog);
@@ -38,7 +44,7 @@ export class DashboardComponent implements OnInit {
   form = this.buildForm();
 
   payment?: Payment;
-  selectedPayment: PaymentItem | null = null;
+  selectedPayment?: PaymentItem;
   dataSource = new MatTableDataSource<PaymentItem>();
 
   displayedColumns: string[] = [
@@ -60,22 +66,19 @@ export class DashboardComponent implements OnInit {
     this.setTotalPaymentsAmount();
   }
 
-  onOpenMenu(event: MouseEvent, payment: PaymentItem): void {
-    this.matMenuTrigger.openMenu();
+  ngAfterViewInit(): void {
+    this.sortRowsByDate();
+  }
 
-    if (event) {
-      this.selectedPayment = payment;
-      return;
-    }
-
-    this.selectedPayment = null;
+  onOpenMenu(payment: PaymentItem): void {
+    this.selectedPayment = payment;
   }
 
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
 
-    this.loadPayments();
+    this.setTotalPaymentsAmount();
   }
 
   onFilterSubmit(): void {
@@ -92,8 +95,14 @@ export class DashboardComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
 
-  onOpenDialog(): void {
-    const data = this.selectedPayment;
+  onOpenDialog(action: 'Adicionar' | 'Alterar'): void {
+    let data: PaymentItem | undefined;
+
+    if (action === 'Alterar') {
+      data = this.selectedPayment;
+    } else {
+      data = undefined;
+    }
 
     const dialogRef = this.matDialog.open(ModalPaymentComponent, {
       autoFocus: false,
@@ -106,8 +115,6 @@ export class DashboardComponent implements OnInit {
         this.loadPayments();
         return;
       }
-
-      this.selectedPayment = null;
     });
   }
 
@@ -135,6 +142,20 @@ export class DashboardComponent implements OnInit {
     return this.fb.nonNullable.group({
       filter: [''],
     });
+  }
+
+  private sortRowsByDate(): void {
+    this.dataSource.sort = this.sort;
+
+    this.dataSource.sortingDataAccessor = (row, header) => {
+      const value = row[header as keyof PaymentItem] as any;
+
+      if (header === 'date') {
+        return +new Date(value as string);
+      }
+
+      return value;
+    };
   }
 
   private loadPaymentsPayload(): PaymentListPayload {
@@ -171,14 +192,14 @@ export class DashboardComponent implements OnInit {
   private setTotalPaymentsAmount(): void {
     this.loading = true;
 
-    this.paymentService
-      .getPayments()
-      .subscribe((payment) => {
+    this.paymentService.getPayments().subscribe({
+      next: (payment) => {
         this.totalPaymentsAmount = payment.items.length;
         this.loadPayments();
-      })
-      .add(() => {
+      },
+      error: () => {
         this.loading = false;
-      });
+      },
+    });
   }
 }

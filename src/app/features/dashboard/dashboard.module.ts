@@ -10,22 +10,24 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
-import { CoreModule } from 'src/app/core/core.module';
+import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard';
+import { PipesModule } from 'src/app/core/pipes/pipes.module';
 import { ModalPaymentComponent } from './components/modal-payment';
 import { DashBoardRoutingModule } from './components/dashboard-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 const components = [DashboardComponent, ModalPaymentComponent];
 
 @NgModule({
-  declarations: [components],
+  declarations: components,
   imports: [
     CommonModule,
     FormsModule,
@@ -42,14 +44,16 @@ const components = [DashboardComponent, ModalPaymentComponent];
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSortModule,
     MatProgressSpinnerModule,
 
-    CoreModule,
+    PipesModule,
+    SharedModule,
 
     NgxMaskDirective,
     CurrencyMaskModule,
   ],
-  exports: [components],
+  exports: components,
   providers: [provideNgxMask()],
 })
 export class DashboardModule {}

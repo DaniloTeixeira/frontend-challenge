@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from './features/auth/services';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from './features/auth/services/auth';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,6 @@ import { AuthService } from './features/auth/services';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  route = inject(ActivatedRoute);
   isAuthenticated$ = inject(AuthService).isAuthenticated$;
 }

@@ -11,14 +11,23 @@
     />
     <div class="text-center mt-5">
       <button
+        *ngIf="isAuthenticated$ | async"
         mat-raised-button
         class="primary-raised-button"
         type="button"
-        [routerLink]="
-          (isAuthenticated$ | async) ? ['/dashboard'] : ['/autenticacao']
-        "
+        routerLink="/dashboard"
       >
-        Voltar para {{ (isAuthenticated$ | async) ? "dashboard" : "login" }}
+        Voltar para dashboard
+      </button>
+
+      <button
+        *ngIf="(isAuthenticated$ | async) === false"
+        mat-raised-button
+        class="primary-raised-button"
+        type="button"
+        routerLink="/autenticacao"
+      >
+        Voltar para login
       </button>
     </div>
   </div>

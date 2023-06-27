@@ -1,6 +1,6 @@
 <div class="mx-4 my-5 mat-elevation-z2">
   <mat-card class="p-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <div class="d-flex justify-content-between align-items-end flex-wrap">
       <div class="flex-grow-1">
         <div>
           <h2 class="text-color">Dashboard</h2>
@@ -8,7 +8,7 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="onFilterSubmit()">
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <mat-form-field class="w-75">
               <mat-label>Filtro</mat-label>
               <input type="text" matInput formControlName="filter" />
@@ -16,8 +16,8 @@
 
             <button
               mat-fab
-              matTooltip="Pesquisar"
-              class="primary-stroked-button ms-2"
+              matTooltip="Filtrar"
+              class="primary-stroked-button ms-3"
               type="submit"
             >
               <mat-icon>search</mat-icon>
@@ -26,19 +26,25 @@
         </form>
       </div>
 
-      <div>
+      <div class="dashboard__item-header">
         <button
           mat-raised-button
           class="primary-raised-button"
           type="button"
-          (click)="onOpenDialog()"
+          (click)="onOpenDialog('Adicionar')"
         >
           Adicionar
         </button>
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource">
+    <table
+      mat-table
+      matSort
+      matSortActive="date"
+      matSortDirection="desc"
+      [dataSource]="dataSource"
+    >
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
         <td mat-cell data-cell="Nome" *matCellDef="let payment">
@@ -54,7 +60,14 @@
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <th
+          mat-header-cell
+          mat-sort-header
+          [disableClear]="true"
+          *matHeaderCellDef
+        >
+          Data
+        </th>
         <td mat-cell data-cell="Data" *matCellDef="let payment">
           {{ payment.date | date : "dd/MM/yyyy" }}
         </td>
@@ -83,7 +96,7 @@
             <button
               mat-icon-button
               [matMenuTriggerFor]="contextMenu"
-              (click)="onOpenMenu($event, payment)"
+              (click)="onOpenMenu(payment)"
             >
               <mat-icon class="text-color">more_vert</mat-icon>
             </button>
@@ -96,6 +109,7 @@
           class="text-center td__no-data p-3"
           [attr.colspan]="displayedColumns.length"
         >
+          <span *ngIf="loading">Carregando...</span>
           <span *ngIf="!loading">
             <img
               class="td__no-data-image"
@@ -124,7 +138,7 @@
 </div>
 
 <mat-menu #contextMenu="matMenu">
-  <button mat-menu-item (click)="onOpenDialog()">
+  <button mat-menu-item (click)="onOpenDialog('Alterar')">
     <mat-icon class="text-muted">edit</mat-icon>
     Alterar
   </button>
