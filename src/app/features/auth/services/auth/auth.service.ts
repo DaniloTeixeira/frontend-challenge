@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { endpoints } from 'src/environments/ednpoints';
 import { LoginPayload } from '../../models/LoginPayload';
@@ -19,8 +19,9 @@ export class AuthService {
   private storageService = inject(StorageService);
 
   private baseUrl = endpoints.auth;
+
   private _isAuthenticated$ = new BehaviorSubject(
-    !!this.storageService.getItem('accessToken')
+    !!this.storageService.getItem('access_token')
   );
 
   isAuthenticated$ = this._isAuthenticated$.asObservable();
@@ -42,10 +43,6 @@ export class AuthService {
   logout(): void {
     this._isAuthenticated$.next(false);
     this.storageService.clearStorage();
-  }
-
-  getLocalstorageToken(): string | null {
-    return this.storageService.getItem('accessToken');
   }
 
   updateProfile(
