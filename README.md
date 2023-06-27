@@ -25,7 +25,7 @@ Senha: picpay@123
 
 ## Links úteis
 
--> Aplicação rodando em produção: https://danilo-teixeira-frontend-challenge.netlify.app/autenticacao/entrar
+-> Aplicação rodando em produção: https://danilo-teixeira-frontend-challenge.netlify.app
 -> Swagger utilizado para consumo das APIs backend: https://3kniis.sse.codesandbox.io/
 -> Instruções fornecidas para desenvolvimento do projeto: https://github.com/PicPay-Recruiter-Web/frontend-challenge
--> Meu perfil do LinkedIn: https://www.linkedin.com/in/danilorodriguesteixeira/
+-> Meu perfil do LinkedIn: https://www.linkedin.com/in/danilorodriguesteixeira
