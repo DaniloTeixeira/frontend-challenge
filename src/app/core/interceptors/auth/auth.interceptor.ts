@@ -5,27 +5,31 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { first, Observable, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/services/auth';
+import { StorageService } from '../../services/storage';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private authService = inject(AuthService);
+  private storageService = inject(StorageService);
+  private isAuthenticated$ = inject(AuthService).isAuthenticated$;
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = this.authService.getLocalstorageToken();
+    this.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        const accessToken = this.storageService.getItem('access_token');
+        request = request.clone({
+          setHeaders: { Authorization: `Bearer ${accessToken}` },
+        });
+      }
+    });
 
-    if (token) {
-      request = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
-      });
-
-      return next.handle(request);
-    }
-
-    return next.handle(request);
+    return this.isAuthenticated$.pipe(
+      first(),
+      switchMap(() => next.handle(request))
+    );
   }
 }
