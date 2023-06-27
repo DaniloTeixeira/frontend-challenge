@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from 'src/app/features/auth/services';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/features/auth/services/auth';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,11 @@ import { AuthService } from 'src/app/features/auth/services';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  private router = inject(Router);
   private authService = inject(AuthService);
 
   onLogout(): void {
     this.authService.logout();
+    this.router.navigate(['autenticacao']);
   }
 }

@@ -8,4 +8,5 @@ export interface PaymentItem {
   isPayed: boolean;
   date: string;
   __v: number;
+  image?: string;
 }

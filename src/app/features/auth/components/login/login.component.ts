@@ -1,11 +1,11 @@
+import { Router } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services';
+import { AuthService } from '../../services/auth';
 import { LoginPayload } from '../../models/LoginPayload';
-import { NotificationService } from 'src/app/core/services/notification';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification';
 
 @Component({
   selector: 'app-login',
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(payload)
       .subscribe(() => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
         this.notification.success('Login efetuado com sucesso!');
       })
       .add(() => {
