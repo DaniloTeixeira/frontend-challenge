@@ -8,7 +8,7 @@
     <div class="row mb-3">
       <mat-form-field class="w-100 mb-2">
         <mat-label>Usuário</mat-label>
-        <input type="text" matInput formControlName="username" />
+        <input type="text" matInput formControlName="username" id="username" />
         <mat-icon class="primary-color" matSuffix>person</mat-icon>
         <mat-error> O nome do usuário é obrigatório </mat-error>
       </mat-form-field>
@@ -19,6 +19,7 @@
           [type]="showPassword ? 'text' : 'password'"
           matInput
           formControlName="password"
+          id="password"
         />
         <mat-icon
           matSuffix

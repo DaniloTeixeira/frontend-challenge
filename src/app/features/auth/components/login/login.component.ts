@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth';
 import { LoginPayload } from '../../models/LoginPayload';
-import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/core/services/notification';
 
 @Component({
